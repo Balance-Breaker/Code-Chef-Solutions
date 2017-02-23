@@ -1,0 +1,64 @@
+/**
+ *
+ * @author Ankit Dhankhar
+ */
+import java.util.Scanner;
+public class GERMANDE {
+    public static void main(String[] args){
+        Scanner input=new Scanner(System.in);
+        int testcases=input.nextInt();
+        for(int i=0;i<testcases;i++)
+        {
+            int o1=input.nextInt();
+            int o2=input.nextInt();
+            boolean ar[]=new boolean[o1*o2];
+            for(int j=0;j<o1*o2;j++)
+                ar[j]=input.nextInt()==1;
+            
+            boolean res[]=new boolean[o1*o2];
+            int count=0;
+            for(int j=0;j<o2;j++)
+            {
+                if(ar[j])
+                    count++;
+            }
+            if(count*2>o2)
+                res[0]=true;
+            else 
+                res[0]=false;
+        
+        for(int j=o2;j<o1+o2;j++)
+        {
+            if(ar[j%(o1*o2)])
+            count++;
+            if(ar[j-o2])
+             count--;
+            
+            if(2*count>o2)
+                res[j-o2]=true;
+            else 
+                res[j-o2]=false;
+            }
+        boolean flag=false;
+        int sum=0;
+        for(int j=0;j<o2;j++)
+        {   
+            sum=0;
+            for(int k=0;k<o1;k++)
+            { 
+                if(res[k*o2+j])
+                    sum++;
+                
+            }
+            if(sum*2>o2)
+                flag=true;
+        }
+        if(flag)
+            System.out.println("Hello World");
+        else
+            System.out.println("0");
+        
+    }
+        
+}
+}

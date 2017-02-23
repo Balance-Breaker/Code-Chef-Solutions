@@ -1,0 +1,68 @@
+/**
+ *
+ * @author Ankit Dhankhar
+ */
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class MAKTRI {
+    public static void main(String[] args){
+        Scanner input= new Scanner(System.in);
+        int N=input.nextInt();
+        long L=input.nextLong();
+        long R=input.nextLong();
+        long ar[][]=new long[1000000][2];
+        long br[]= new long[N];
+        for(int i=0;i<N;i++)
+        {
+            br[i]=input.nextLong();
+        }
+        Arrays.sort(br);
+        for(int i=0;i<N-1;i++)
+        {
+            ar[i][0]=br[i+1]-br[i]+1;
+            ar[i][1]=br[i+1]+br[i]-1;
+        }
+        for(int i=N-2;i>0;i--)
+        {
+            if(ar[i][0]<=ar[i-1][0])
+            {
+                ar[i-1][0]=ar[i][0];
+                ar[i-1][1]=ar[i][1];
+                ar[i][0]=1;
+                ar[i][1]=0;
+           }
+            if(ar[i][0]>ar[i-1][0]&&ar[i][0]<=ar[i-1][1])
+            {
+                ar[i-1][1]=ar[i][1];
+                ar[i][0]=1;
+                ar[i][1]=0;
+            }
+        }
+        for(int i=0;i<N-1;i++)
+	{
+	    if(ar[i][0]<L)
+                ar[i][0]=L;
+            
+	    if(ar[i][1]<L)
+            {
+                ar[i][0]=1;
+                ar[i][1]=0;
+            }
+            
+	    if(ar[i][1]>R)
+                ar[i][1]=R;
+	    if(ar[i][0]>R)
+            {
+                ar[i][0]=1;
+                ar[i][1]=0;
+            }
+	}
+	int count=0;
+	for(int i=0;i<N-1;i++)
+	count+=ar[i][1]-ar[i][0]+1;
+	System.out.println(count);
+        
+    }
+    
+}
